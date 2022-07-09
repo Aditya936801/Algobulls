@@ -1,0 +1,43 @@
+.add-button{
+    margin: 20px;
+    border-radius: 4px;
+}
+
+.floating-add-button{
+  position: fixed;
+  bottom: 100px;
+  right: 50px;
+  display: none;
+   
+}
+
+.delete-icon{
+    font-size: large;
+    color: rgb(229, 37, 37);
+    margin-left: 3px;
+    cursor: pointer;
+}
+
+.edit-icon{
+    font-size: large;
+    color: rgb(28, 153, 28);
+    cursor: pointer;
+}
+
+
+.showmore-button{
+    margin-left: 5px;
+    font-size: x-small;
+}
+
+@media only screen and (max-width: 600px){
+    .add-button{
+        display: none;
+    }
+    
+    .floating-add-button{
+      display: block;
+       
+    }
+
+}
