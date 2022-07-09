@@ -4,10 +4,11 @@ import AddEditModal from "./subcomponent/modals";
 import { ShowMoreModal, deleteModal } from "./subcomponent/modals";
 import { tagsView, tagsFilter, statusFilter } from "./subcomponent/filterSort";
 import { useState } from "react";
-import { Table, Button,Tooltip } from "antd";
+import { Table, Button,Tooltip,Typography } from "antd";
 import { EditOutlined, DeleteOutlined,PlusOutlined } from "@ant-design/icons";
 import moment from "moment";
 const Todo = () => {
+  const {Title} = Typography
   const getItemFromLocalStorage = localStorage.getItem("notes");
   const [data, setData] = useState(
     getItemFromLocalStorage ? JSON.parse(getItemFromLocalStorage) : []
@@ -121,6 +122,7 @@ const Todo = () => {
 
   return (
     <div>
+    <Title level={2}  >ToDo Application</Title>
       <Table
         columns={columns}
         dataSource={data}
