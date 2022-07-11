@@ -1,23 +1,41 @@
 import "antd/dist/antd.css";
 import "./index.css";
 import AddEditModal from "./subcomponent/modals";
+import {filter} from "./subcomponent/search"
 import { ShowMoreModal, deleteModal } from "./subcomponent/modals";
 import { tagsView, tagsFilter, statusFilter } from "./subcomponent/filterSort";
 import { useState } from "react";
-import { Table, Button,Tooltip,Typography } from "antd";
+import { Table, Button,Tooltip,Typography,Input } from "antd";
 import { EditOutlined, DeleteOutlined,PlusOutlined } from "@ant-design/icons";
 import moment from "moment";
 const Todo = () => {
   const {Title} = Typography
+ 
   const getItemFromLocalStorage = localStorage.getItem("notes");
   const [data, setData] = useState(
-    getItemFromLocalStorage ? JSON.parse(getItemFromLocalStorage) : []
+    getItemFromLocalStorage ? JSON.parse(getItemFromLocalStorage) : []         
   );
   const [addModal, setAddModal] = useState(false);
   const [editModal, setEditModal] = useState(false);
   const [currentRecord, setCurrentRecord] = useState({});
   const [showMore, setShowMore] = useState(false);
   const [description, setDescription] = useState("");
+  const [filterData,setFilterData] = useState([])
+  const [isFilter,setIsFilter] = useState(false)  
+ 
+  const handleIsFilter = (e)=>{
+    if(e.target.value==="")
+    {
+      setIsFilter(false)
+    }
+    else{
+      if(!isFilter)
+      {
+        setIsFilter(true)
+      }
+      setFilterData(filter(data,filterData,setFilterData,e.target.value))
+    }
+  }
 
   const handleEditModal = (record) => {
     const curretObject = {
@@ -122,10 +140,16 @@ const Todo = () => {
 
   return (
     <div>
-    <Title level={2}  >ToDo Application</Title>
+    <Title level={2} className="heading" >ToDo Application</Title>
+    <Input
+      placeholder="Search..."
+      allowClear
+      onChange={handleIsFilter}
+      className="search-bar"
+    />
       <Table
         columns={columns}
-        dataSource={data}
+        dataSource={isFilter? filterData :data}
         pagination={{
           defaultPageSize: 8,
         }}
